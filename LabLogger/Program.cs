@@ -11,11 +11,11 @@ namespace LabLogger
     class Program
     {
         // global fields
-        static readonly int LOG_INTERVALL = 1;           // in minutes, must be divisor of 60
+        static readonly int LOG_INTERVALL = 5;           // in minutes, must be divisor of 60
         static readonly int LOG_INTERVALL_TOLERANCE = 4; // in seconds
         static List<Room> rooms;
         static DateTime timeStamp;
-        static readonly string writeApiKey = "1S85EBLXBSKW5F5I";
+        static readonly string writeApiKey = "<your write API key>";
         static RestClient clientTS;
 
 
