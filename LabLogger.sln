@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.28803.202
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LabLogger", "LabLogger\LabLogger.csproj", "{5B026A36-D40C-4806-A43F-6BECB1CF00A5}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5B026A36-D40C-4806-A43F-6BECB1CF00A5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5B026A36-D40C-4806-A43F-6BECB1CF00A5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5B026A36-D40C-4806-A43F-6BECB1CF00A5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5B026A36-D40C-4806-A43F-6BECB1CF00A5}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {E363CA6C-BC56-45B1-97CC-07D092BDAB2F}
+	EndGlobalSection
+EndGlobal
