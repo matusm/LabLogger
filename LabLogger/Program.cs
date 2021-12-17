@@ -10,21 +10,26 @@ namespace LabLogger
 {
     class Program
     {
-        // global fields
-        static readonly int LOG_INTERVALL = 5;           // in minutes, must be divisor of 60
-        static readonly int LOG_INTERVALL_TOLERANCE = 4; // in seconds
-        static List<Room> rooms;
-        static DateTime timeStamp;
-        static readonly string writeApiKey = "<your write API key>";
-        static RestClient clientTS;
+        // secrets
+        private static readonly string AdafruitIoUsername = "XXXXX";
+        private static readonly string AdafruitIoKey = "XXXXX";
+        private static readonly string ThingSpeakWriteApiKey = "XXXXX";
 
+        // global fields
+        private static readonly int LOG_INTERVALL = 5;           // in minutes, must be divisor of 60
+        private static readonly int LOG_INTERVALL_TOLERANCE = 4; // in seconds
+        private static List<Room> rooms;
+        private static DateTime timeStamp;
+        private static RestClient clientTS;
+        private static RestClient clientAdafruit;
 
         /****************************************************************************************/
+        // mimic an Arduino sketch
 
         static void Main(string[] args)
         {
             CultureInfo.CurrentCulture = CultureInfo.InvariantCulture;
-            // mimic an Arduino sketch
+            
             Setup();
             while (true)
             {
@@ -40,8 +45,11 @@ namespace LabLogger
             rooms = new List<Room>();
             // this data should be in a config file
             // directories must exist prior to use
-            rooms.Add(new Room("COM3", "HP-204 [Matus]", @"D:\temp\Sensor1"));
-            rooms.Add(new Room("COM6", "HP-204 [Matus]", @"D:\temp\Sensor2"));
+            // /dev/tty.usbserial-FTY594BQ
+            rooms.Add(new Room("/dev/tty.usbserial-FTY594BQ", "Home [Matus]", @""));
+            //rooms.Add(new Room("COM6", "HP-204 [Matus]", @"D:\temp\Sensor1"));
+            //rooms.Add(new Room("COM6", "HP-204 [Matus]", @"D:\temp\Sensor1"));
+            //rooms.Add(new Room("COM6", "HP-204 [Matus]", @"D:\temp\Sensor1"));
             UpdateSensorValues();
             Console.WriteLine($"{rooms.Count} transmitters:");
             foreach (var room in rooms)
@@ -50,7 +58,10 @@ namespace LabLogger
             }
             Console.WriteLine();
             clientTS = new RestClient("https://api.thingspeak.com/update");
+            clientAdafruit = new RestClient("https://io.adafruit.com/api/v2/");
         }
+
+        /****************************************************************************************/
 
         private static void Loop()
         {
@@ -75,11 +86,15 @@ namespace LabLogger
                 room.Device.Update();
         }
 
+        /****************************************************************************************/
+
         private static void ResetSensorValues()
         {
             foreach (var room in rooms)
                 room.Device.Reset();
         }
+
+        /****************************************************************************************/
 
         private static void WriteDataToConsole()
         {
@@ -91,6 +106,8 @@ namespace LabLogger
             Console.WriteLine();
         }
 
+        /****************************************************************************************/
+
         private static void SaveData(string baseFileName)
         {
             foreach (var room in rooms)
@@ -99,6 +116,8 @@ namespace LabLogger
                 WriteDataToFile(fullFileName, room);
             };
         }
+
+        /****************************************************************************************/
 
         private static void PublishThingSpeak()
         {
@@ -113,26 +132,47 @@ namespace LabLogger
 
             // quick and dirty
             // one should correspond rooms with the TS fields!
-            field1 = rooms[0].Device.AirTmperature;
-            field2 = rooms[1].Device.AirTmperature;
+            field1 = rooms[0].Device.AirTemperature;
+            field2 = rooms[0].Device.AirTemperatureMax;
+            field3 = rooms[0].Device.AirTemperatureMin;
             field4 = rooms[0].Device.AirHumidity;
-            field5 = rooms[1].Device.AirHumidity;
+            field5 = rooms[0].Device.AirHumidityMax;
+            field6 = rooms[0].Device.AirHumidityMin;
             field8 = rooms[0].Device.SampleSize;
-            string data = $"?api_key={writeApiKey}&created_at={timeStamp.ToString("yyyy-MM-dd HH:mm:ss+000")}&field1={field1:F3}&field2={field2:F3}&field4={field4:F3}&field5={field5:F3}&field8={field8:F0}";
+            string data = $"?api_key={ThingSpeakWriteApiKey}&created_at={timeStamp.ToString("yyyy-MM-dd HH:mm:ss+000")}&field1={field1:F3}&field2={field2:F3}&field3={field3:F3}&field4={field4:F3}&field5={field5:F3}&field6={field6:F3}&field8={field8:F0}";
 
             RestRequest request = new RestRequest(data, DataFormat.Json);
             IRestResponse response = clientTS.Get(request);
             if(!response.IsSuccessful)
             {
-                Console.WriteLine(response.Content);
+                Console.WriteLine($"ThingSpeak response: {response.Content}");
                 Console.WriteLine();
             }
         }
 
+        /****************************************************************************************/
+
         private static void PublishAdafruitIO()
         {
             // TODO
+            bool debug = true;
+            if (debug)
+                return;
+
+            string data = $"{AdafruitIoUsername}/feeds/{AdafruitIoKey}/data/air-temperature";
+            var ioMessage = new AdaIoMessage();
+            ioMessage.value = rooms[0].Device.AirTemperature.ToString();
+            //var ioMessageText = JsonConvert.SerializeObject(ioMessage);
+            RestRequest request = new RestRequest(data, DataFormat.Json);
+            IRestResponse response = clientAdafruit.Get(request);
+            if (!response.IsSuccessful)
+            {
+                Console.WriteLine($"AdafruitIO response: {response.Content}");
+                Console.WriteLine();
+            }
         }
+
+        /****************************************************************************************/
 
         private static void WriteDataToFile(string fileName, Room room)
         {
@@ -149,11 +189,15 @@ namespace LabLogger
             }
         }
 
+        /****************************************************************************************/
+
         private static string GenerateCsvLine(Room room)
         {
             string timeStampTS = timeStamp.ToString("yyyy-MM-dd HH:mm:ss+000");
-            return $"{timeStampTS},{room.Device.AirTmperature:F3},{room.Device.AirHumidity:F3},,,,,,{room.Device.SampleSize},48.2093,16.3182,210,";
+            return $"{timeStampTS},{room.Device.AirTemperature:F3},{room.Device.AirTemperatureMax:F2},{room.Device.AirTemperatureMin:F2},{room.Device.AirHumidity:F3},{room.Device.AirHumidityMax:F2},{room.Device.AirHumidityMin:F2},,{room.Device.SampleSize},48.2093,16.3182,210,";
         }
+
+        /****************************************************************************************/
 
         private static bool TimeForLogging(DateTime timeStamp)
         {
@@ -168,6 +212,8 @@ namespace LabLogger
             }
             return false;
         }
+
+        /****************************************************************************************/
 
         private static string GenerateFileName(DateTime timeStamp)
         {
