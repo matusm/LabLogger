@@ -15,7 +15,7 @@
 
         public override string ToString()
         {
-            return $"{RoomName} {Device.TransmitterID}";
+            return $"{Device.TransmitterID}  {RoomName}";
         }
     }
 }

@@ -25,6 +25,7 @@ namespace LabLogger
         public double AveragingTime => airTemperature.Duration; // in seconds
         public DateTime TimeStamp { get; private set; }
         public string TransmitterID => device.InstrumentID;
+        public string TransmitterSN => device.InstrumentSerialNumber;
 
         public void Update()
         {
@@ -32,7 +33,7 @@ namespace LabLogger
             airTemperature.Update(values.Temperature);
             airHumidity.Update(values.Humidity);
             TimeStamp = values.TimeStamp;
-            Thread.Sleep(1000);
+            Thread.Sleep(100);
         }
 
         public void Reset()

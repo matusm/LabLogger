@@ -1,0 +1,57 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="LabLogger.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="Port1" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">COM3</Value>
+    </Setting>
+    <Setting Name="Port2" Type="System.String" Scope="Application">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="Port3" Type="System.String" Scope="Application">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="Port4" Type="System.String" Scope="Application">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="FileLocation1" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">C:\temp\Sensor1</Value>
+    </Setting>
+    <Setting Name="FileLocation2" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">C:\temp\Sensor2</Value>
+    </Setting>
+    <Setting Name="FileLocation3" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">C:\temp\Sensor3</Value>
+    </Setting>
+    <Setting Name="FileLocation4" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">C:\temp\Sensor4</Value>
+    </Setting>
+    <Setting Name="Location1" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">HP313_outsideORS</Value>
+    </Setting>
+    <Setting Name="Location2" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">HP313_insideORStop</Value>
+    </Setting>
+    <Setting Name="Location3" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">HP313_insideORS2bottom</Value>
+    </Setting>
+    <Setting Name="Location4" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Metaversum</Value>
+    </Setting>
+    <Setting Name="LogIntervallMinutes" Type="System.Int32" Scope="Application">
+      <Value Profile="(Default)">5</Value>
+    </Setting>
+    <Setting Name="LogToleranceSeconds" Type="System.Int32" Scope="Application">
+      <Value Profile="(Default)">4</Value>
+    </Setting>
+    <Setting Name="ThingSpeakWriteApiKey" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">!secret!</Value>
+    </Setting>
+    <Setting Name="AdafruitIoUsername" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">!secret!</Value>
+    </Setting>
+    <Setting Name="AdafruitIoKey" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">!secret!</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>
