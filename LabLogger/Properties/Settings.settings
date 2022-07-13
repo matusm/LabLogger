@@ -15,25 +15,25 @@
       <Value Profile="(Default)" />
     </Setting>
     <Setting Name="FileLocation1" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">C:\temp\Sensor1</Value>
+      <Value Profile="(Default)">C:\LabLogger\Sensor1</Value>
     </Setting>
     <Setting Name="FileLocation2" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">C:\temp\Sensor2</Value>
+      <Value Profile="(Default)">C:\LabLogger\Sensor2</Value>
     </Setting>
     <Setting Name="FileLocation3" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">C:\temp\Sensor3</Value>
+      <Value Profile="(Default)" />
     </Setting>
     <Setting Name="FileLocation4" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">C:\temp\Sensor4</Value>
+      <Value Profile="(Default)" />
     </Setting>
     <Setting Name="Location1" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">HP313_outsideORS</Value>
+      <Value Profile="(Default)">HP-207, Lambda 1050+ sample chamber</Value>
     </Setting>
     <Setting Name="Location2" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">HP313_insideORStop</Value>
+      <Value Profile="(Default)">HP-207, </Value>
     </Setting>
     <Setting Name="Location3" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">HP313_insideORS2bottom</Value>
+      <Value Profile="(Default)">Universe</Value>
     </Setting>
     <Setting Name="Location4" Type="System.String" Scope="Application">
       <Value Profile="(Default)">Metaversum</Value>

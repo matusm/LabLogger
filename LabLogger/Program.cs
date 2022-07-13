@@ -58,19 +58,16 @@ namespace LabLogger
             rooms = roomsList.ToArray();
 
             UpdateSensorValues();
-            Console.WriteLine($"{rooms.Length} transmitters:");
+            Console.WriteLine($"Averaging periode {LOG_INTERVALL} min.");
+            Console.WriteLine($"{rooms.Length} transmitter(s):");
             foreach (var room in rooms)
             {
                 Console.WriteLine($" - {room}");
             }
             Console.WriteLine();
-            clientTS = new RestClient("https://api.thingspeak.com/update");
-            //clientAdafruit = new RestClient("https://io.adafruit.com/api/v2/");
 
-            string status = $"{Assembly.GetExecutingAssembly().GetName().Name} {Assembly.GetExecutingAssembly().GetName().Version} started at {DateTime.UtcNow} with {rooms.Length} sensors";
-            status = "test";
-            Thread.Sleep(5000);
-            PublishStatusThingSpeak(status);
+            //clientTS = new RestClient("https://api.thingspeak.com/update");
+            //clientAdafruit = new RestClient("https://io.adafruit.com/api/v2/");
         }
 
         /****************************************************************************************/
@@ -113,9 +110,10 @@ namespace LabLogger
         {
             foreach (var room in rooms)
             {
-                Console.WriteLine($"csv -> {GenerateCsvLine(room)}");
+                Transmitter device = room.Device;
+                string textLine = $"{timeStamp.ToString("HH:mm")} [{room.RoomName}]       {device.AirTemperature:F2} ± {device.AirTemperatureRange / 2:F2} °C       {device.AirHumidity:F1} ± {device.AirHumidityRange / 2:F1} %";
+                Console.WriteLine(textLine);
             }
-            Console.WriteLine();
         }
 
         /****************************************************************************************/
@@ -133,6 +131,7 @@ namespace LabLogger
 
         private static void PublishThingSpeak()
         {
+            /*
             double[] field = new double[8];
             for (int i = 0; i < field.Length; i++)
             {
@@ -159,10 +158,12 @@ namespace LabLogger
                 Console.WriteLine($"ThingSpeak response: {response.Content}");
                 Console.WriteLine();
             }
+            */
         }
 
         private static void PublishStatusThingSpeak(string status)
         {
+            /*
             string data = $"?api_key={ThingSpeakWriteApiKey}&created_at={timeStamp.ToString("yyyy-MM-dd HH:mm:ss+000")}&status={status}";
             RestRequest request = new RestRequest(data, DataFormat.Json);
             IRestResponse response = clientTS.Get(request);
@@ -171,6 +172,7 @@ namespace LabLogger
                 Console.WriteLine($"ThingSpeak response: {response.Content}");
                 Console.WriteLine();
             }
+            */
         }
 
         /****************************************************************************************/

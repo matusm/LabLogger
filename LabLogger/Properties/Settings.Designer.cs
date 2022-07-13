@@ -61,7 +61,7 @@ namespace LabLogger.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("C:\\temp\\Sensor1")]
+        [global::System.Configuration.DefaultSettingValueAttribute("C:\\LabLogger\\Sensor1")]
         public string FileLocation1 {
             get {
                 return ((string)(this["FileLocation1"]));
@@ -70,7 +70,7 @@ namespace LabLogger.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("C:\\temp\\Sensor2")]
+        [global::System.Configuration.DefaultSettingValueAttribute("C:\\LabLogger\\Sensor2")]
         public string FileLocation2 {
             get {
                 return ((string)(this["FileLocation2"]));
@@ -79,7 +79,7 @@ namespace LabLogger.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("C:\\temp\\Sensor3")]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
         public string FileLocation3 {
             get {
                 return ((string)(this["FileLocation3"]));
@@ -88,7 +88,7 @@ namespace LabLogger.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("C:\\temp\\Sensor4")]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
         public string FileLocation4 {
             get {
                 return ((string)(this["FileLocation4"]));
@@ -97,7 +97,7 @@ namespace LabLogger.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("HP313_outsideORS")]
+        [global::System.Configuration.DefaultSettingValueAttribute("HP-207, Lambda 1050+ sample chamber")]
         public string Location1 {
             get {
                 return ((string)(this["Location1"]));
@@ -106,7 +106,7 @@ namespace LabLogger.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("HP313_insideORStop")]
+        [global::System.Configuration.DefaultSettingValueAttribute("HP-207, ")]
         public string Location2 {
             get {
                 return ((string)(this["Location2"]));
@@ -115,7 +115,7 @@ namespace LabLogger.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("HP313_insideORS2bottom")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Universe")]
         public string Location3 {
             get {
                 return ((string)(this["Location3"]));
