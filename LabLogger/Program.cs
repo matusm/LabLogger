@@ -58,7 +58,7 @@ namespace LabLogger
             rooms = roomsList.ToArray();
 
             UpdateSensorValues();
-            Console.WriteLine($"Averaging periode {LOG_INTERVALL} min.");
+            Console.WriteLine($"Averaging intervall {LOG_INTERVALL} min.");
             Console.WriteLine($"{rooms.Length} transmitter(s):");
             foreach (var room in rooms)
             {
