@@ -14,8 +14,10 @@ namespace LabLogger
             airHumidity = new DataSeriesPod($"[h] {device.InstrumentID}");
         }
 
-        public double AirTemperature => airTemperature.AverageValue; 
+        public double AirTemperature => airTemperature.AverageValue;
+        public double AirTemperatureRange => airTemperature.Range;
         public double AirHumidity => airHumidity.AverageValue;
+        public double AirHumidityRange => airHumidity.Range;
         public double AirTemperatureMax => airTemperature.MaximumValue;
         public double AirHumidityMax => airHumidity.MaximumValue;
         public double AirTemperatureMin => airTemperature.MinimumValue;
