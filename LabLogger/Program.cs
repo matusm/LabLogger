@@ -142,7 +142,7 @@ namespace LabLogger
             {
                 field[2 * i] = rooms[i].Device.AirTemperature;
                 field[2 * i + 1] = rooms[i].Device.AirHumidity;
-                status += $"{rooms[i].Device.TransmitterSN} ";
+                status += $"{rooms[i].Device.TransmitterID} ";
             }
             // the sample size of the first transmitter is reported too
             // this may change
@@ -214,7 +214,7 @@ namespace LabLogger
         private static string GenerateCsvLine(Room room)
         {
             string timeStampTS = timeStamp.ToString("yyyy-MM-dd HH:mm:ss+000");
-            return $"{timeStampTS},{room.RoomName},{room.Device.AirTemperature:F3},{room.Device.AirTemperatureMax:F2},{room.Device.AirTemperatureMin:F2},{room.Device.AirHumidity:F3},{room.Device.AirHumidityMax:F2},{room.Device.AirHumidityMin:F2},{room.Device.SampleSize},{room.Device.TransmitterSN}";
+            return $"{timeStampTS},{room.RoomName},{room.Device.AirTemperature:F3},{room.Device.AirTemperatureMax:F2},{room.Device.AirTemperatureMin:F2},{room.Device.AirHumidity:F3},{room.Device.AirHumidityMax:F2},{room.Device.AirHumidityMin:F2},{room.Device.SampleSize},{room.Device.TransmitterID}";
         }
 
         private static string GenerateCsvHeader() => $"timestamp,room,average temperature,maximum temperature,minimum temperature,average humidity,maximum humidity,minimum humidity,sample size,transmitter SN";

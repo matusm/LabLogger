@@ -1,5 +1,4 @@
 ﻿using At.Matus.DataSeriesPod;
-using Bev.Instruments.EplusE.EExx;
 using System;
 using System.Threading;
 
@@ -9,9 +8,9 @@ namespace LabLogger
     {
         public Transmitter(string sensorIp)
         {
-            device = new EExx(sensorIp);
-            airTemperature = new DataSeriesPod($"[t] {device.InstrumentID}");
-            airHumidity = new DataSeriesPod($"[h] {device.InstrumentID}");
+            thermo = new EExxThermometer(sensorIp);
+            airTemperature = new DataSeriesPod($"[t] {thermo.InstrumentID}");
+            airHumidity = new DataSeriesPod($"[h] {thermo.InstrumentID}");
         }
 
         public double AirTemperature => airTemperature.AverageValue;
@@ -26,15 +25,14 @@ namespace LabLogger
         public int SampleSize => (int)airTemperature.SampleSize;
         public double AveragingTime => airTemperature.Duration; // in seconds
         public DateTime TimeStamp { get; private set; }
-        public string TransmitterID => device.InstrumentID;
-        public string TransmitterSN => device.InstrumentSerialNumber;
+        public string TransmitterID => thermo.InstrumentID;
+        //public string TransmitterSN => thermo.InstrumentSerialNumber;
 
         public void Update()
         {
-            var values = device.GetValues();
-            airTemperature.Update(values.Temperature);
-            airHumidity.Update(values.Humidity);
-            TimeStamp = values.TimeStamp;
+            airTemperature.Update(thermo.GetTemperature());
+            airHumidity.Update(thermo.GetHumidity());
+            TimeStamp = DateTime.UtcNow;
             Thread.Sleep(100);
         }
 
@@ -44,7 +42,7 @@ namespace LabLogger
             airHumidity.Restart();
         }
 
-        private readonly EExx device;
+        private readonly IThermoHygrometer thermo;
         private readonly DataSeriesPod airTemperature;
         private readonly DataSeriesPod airHumidity;
 
