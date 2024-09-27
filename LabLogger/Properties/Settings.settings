@@ -47,11 +47,8 @@
     <Setting Name="ThingSpeakWriteApiKey" Type="System.String" Scope="Application">
       <Value Profile="(Default)">!secret!</Value>
     </Setting>
-    <Setting Name="AdafruitIoUsername" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">!secret!</Value>
-    </Setting>
-    <Setting Name="AdafruitIoKey" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">!secret!</Value>
+    <Setting Name="ThingSpeakEnable" Type="System.Boolean" Scope="Application">
+      <Value Profile="(Default)">False</Value>
     </Setting>
   </Settings>
 </SettingsFile>

@@ -160,19 +160,10 @@ namespace LabLogger.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("!secret!")]
-        public string AdafruitIoUsername {
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool ThingSpeakEnable {
             get {
-                return ((string)(this["AdafruitIoUsername"]));
-            }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("!secret!")]
-        public string AdafruitIoKey {
-            get {
-                return ((string)(this["AdafruitIoKey"]));
+                return ((bool)(this["ThingSpeakEnable"]));
             }
         }
     }

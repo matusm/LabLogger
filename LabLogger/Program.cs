@@ -16,10 +16,6 @@ namespace LabLogger
         private static DateTime timeStamp;
         private static string ThingSpeakWriteApiKey;
         private static RestClient clientTS;
-        //private static RestClient clientAdafruit;
-        //private static string AdafruitIoUsername;
-        //private static string AdafruitIoKey;
-
 
         /****************************************************************************************/
         // mimic an Arduino sketch
@@ -41,7 +37,7 @@ namespace LabLogger
         {
             Console.WriteLine($"{Assembly.GetExecutingAssembly().GetName().Name} {Assembly.GetExecutingAssembly().GetName().Version}");
             List<Room> roomsList = new List<Room>();
-            // directories must exist prior to use
+            // directories must exist prior to use!
             // roomsList.Add(new Room("/dev/tty.usbserial-FTY594BQ", "Home [Matus]", @""));
             if (!string.IsNullOrWhiteSpace(Properties.Settings.Default.Port1))
                 roomsList.Add(new Room(Properties.Settings.Default.Port1, Properties.Settings.Default.Location1, Properties.Settings.Default.FileLocation1));
@@ -53,7 +49,7 @@ namespace LabLogger
                 roomsList.Add(new Room(Properties.Settings.Default.Port4, Properties.Settings.Default.Location4, Properties.Settings.Default.FileLocation4));
             LOG_INTERVALL = Properties.Settings.Default.LogIntervallMinutes;
             LOG_INTERVALL_TOLERANCE = Properties.Settings.Default.LogToleranceSeconds;
-            ThingSpeakWriteApiKey = Properties.Settings.Default.ThingSpeakWriteApiKey;
+
 
             rooms = roomsList.ToArray();
 
@@ -65,9 +61,12 @@ namespace LabLogger
                 Console.WriteLine($" - {room}");
             }
             Console.WriteLine();
-
-            //clientTS = new RestClient("https://api.thingspeak.com/update");
-            //clientAdafruit = new RestClient("https://io.adafruit.com/api/v2/");
+            
+            if (Properties.Settings.Default.ThingSpeakEnable)
+            {
+                clientTS = new RestClient("https://api.thingspeak.com/update");
+            }
+            ThingSpeakWriteApiKey = Properties.Settings.Default.ThingSpeakWriteApiKey;
         }
 
         /****************************************************************************************/
@@ -81,7 +80,6 @@ namespace LabLogger
                 SaveData(GenerateFileName(timeStamp));
                 WriteDataToConsole();
                 PublishThingSpeak();
-                PublishAdafruitIO();
                 Thread.Sleep(1000 * LOG_INTERVALL_TOLERANCE);
                 ResetSensorValues();
             }
@@ -129,15 +127,17 @@ namespace LabLogger
 
         /****************************************************************************************/
 
-        private static void PublishThingSpeak()
+        private static void PublishThingSpeak() => PublishThingSpeak("");
+
+        private static void PublishThingSpeak(string status)
         {
-            /*
+            if (!Properties.Settings.Default.ThingSpeakEnable) 
+                return;
             double[] field = new double[8];
             for (int i = 0; i < field.Length; i++)
             {
                 field[i] = double.NaN;
             }
-            string status = ""; // the status could be something more usefull
             for (int i = 0; i < rooms.Length; i++)
             {
                 field[2 * i] = rooms[i].Device.AirTemperature;
@@ -158,12 +158,12 @@ namespace LabLogger
                 Console.WriteLine($"ThingSpeak response: {response.Content}");
                 Console.WriteLine();
             }
-            */
         }
 
         private static void PublishStatusThingSpeak(string status)
         {
-            /*
+            if (!Properties.Settings.Default.ThingSpeakEnable)
+                return;
             string data = $"?api_key={ThingSpeakWriteApiKey}&created_at={timeStamp.ToString("yyyy-MM-dd HH:mm:ss+000")}&status={status}";
             RestRequest request = new RestRequest(data, DataFormat.Json);
             IRestResponse response = clientTS.Get(request);
@@ -172,29 +172,6 @@ namespace LabLogger
                 Console.WriteLine($"ThingSpeak response: {response.Content}");
                 Console.WriteLine();
             }
-            */
-        }
-
-        /****************************************************************************************/
-
-        private static void PublishAdafruitIO()
-        {
-            // TODO
-            //bool debug = true;
-            //if (debug)
-            //    return;
-
-            //string data = $"{AdafruitIoUsername}/feeds/{AdafruitIoKey}/data/air-temperature";
-            //var ioMessage = new AdaIoMessage();
-            //ioMessage.value = rooms[0].Device.AirTemperature.ToString();
-            ////var ioMessageText = JsonConvert.SerializeObject(ioMessage);
-            //RestRequest request = new RestRequest(data, DataFormat.Json);
-            //IRestResponse response = clientAdafruit.Get(request);
-            //if (!response.IsSuccessful)
-            //{
-            //    Console.WriteLine($"AdafruitIO response: {response.Content}");
-            //    Console.WriteLine();
-            //}
         }
 
         /****************************************************************************************/
@@ -216,6 +193,8 @@ namespace LabLogger
             }
         }
 
+        /****************************************************************************************/
+
         private static bool IsTextFileEmpty(string fileName)
         {
             var info = new FileInfo(fileName);
@@ -229,7 +208,6 @@ namespace LabLogger
             }
             return false;
         }
-
 
         /****************************************************************************************/
 
@@ -260,6 +238,8 @@ namespace LabLogger
         /****************************************************************************************/
 
         private static string GenerateFileName(DateTime timeStamp) => $"{timeStamp.ToString("yyyyMMdd")}.csv";
+
+        /****************************************************************************************/
 
     }
 }
