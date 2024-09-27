@@ -48,10 +48,7 @@ namespace LabLogger
         private readonly DataSeriesPod airTemperature;
         private readonly DataSeriesPod airHumidity;
 
-        public override string ToString()
-        {
-            return TransmitterID;
-        }
+        public override string ToString() => TransmitterID;
 
     }
 }

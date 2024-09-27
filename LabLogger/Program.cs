@@ -239,11 +239,7 @@ namespace LabLogger
             return $"{timeStampTS},{room.RoomName},{room.Device.AirTemperature:F3},{room.Device.AirTemperatureMax:F2},{room.Device.AirTemperatureMin:F2},{room.Device.AirHumidity:F3},{room.Device.AirHumidityMax:F2},{room.Device.AirHumidityMin:F2},{room.Device.SampleSize},{room.Device.TransmitterSN}";
         }
 
-        private static string GenerateCsvHeader()
-        {
-            return $"timestamp,room,average temperature,maximum temperature,minimum temperature,average humidity,maximum humidity,minimum humidity,sample size,transmitter SN";
-        }
-
+        private static string GenerateCsvHeader() => $"timestamp,room,average temperature,maximum temperature,minimum temperature,average humidity,maximum humidity,minimum humidity,sample size,transmitter SN";
 
         /****************************************************************************************/
 
@@ -263,11 +259,7 @@ namespace LabLogger
 
         /****************************************************************************************/
 
-        private static string GenerateFileName(DateTime timeStamp)
-        {
-            string fileExtension = "csv";
-            string baseName = timeStamp.ToString("yyyyMMdd");
-            return baseName + "." + fileExtension;
-        }
+        private static string GenerateFileName(DateTime timeStamp) => $"{timeStamp.ToString("yyyyMMdd")}.csv";
+
     }
 }

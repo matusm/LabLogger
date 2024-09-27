@@ -13,9 +13,6 @@
         public string Path { get; }
         internal Transmitter Device { get; }
 
-        public override string ToString()
-        {
-            return $"{Device.TransmitterID}  {RoomName}";
-        }
+        public override string ToString() => $"{Device.TransmitterID}  {RoomName}";
     }
 }
